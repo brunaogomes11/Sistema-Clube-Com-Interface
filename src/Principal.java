@@ -127,20 +127,37 @@ public class Principal extends Application {
             } else {
                 String dataNascimento = dataNascimentoPicker.getValue().toString();
                 String tipoAcao = tipoAcaoTextField.getText();
-                int dependentes = Integer.parseInt(dependentesTextField.getText());
-                if (tipoAcao.equals("Individual")) {
-                    dependentes = 0;
+                if (tipoAcao.equals("Familiar") || tipoAcao.equals("Individual")) {
+                    
+                    int dependentes = Integer.parseInt(dependentesTextField.getText());
+                    if (tipoAcao.equals("Individual")) {
+                        if (dependentes > 0) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Falha");
+                            alert.setHeaderText(null);
+                            alert.setContentText("O número de dependentes foi alterado pra 0, pois a ação é individual!");
+                            alert.showAndWait();
+                        }
+                        dependentes = 0;
+                    }
+                    Acionista acionista = new Acionista(nome, endereco, cpf, dataNascimento, tipoAcao, dependentes);
+                    acionistas.add(acionista);
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Sucesso");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Acionista cadastrado com sucesso!");
+                    alert.showAndWait();
+
+                    acionistasListView.setItems(FXCollections.observableArrayList(acionistas)); // Atualiza a ListView de funcionários
+           
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Falha");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Acionista não cadastrado!");
+                    alert.showAndWait();
                 }
-                Acionista acionista = new Acionista(nome, endereco, cpf, dataNascimento, tipoAcao, dependentes);
-                acionistas.add(acionista);
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Sucesso");
-                alert.setHeaderText(null);
-                alert.setContentText("Acionista cadastrado com sucesso!");
-                alert.showAndWait();
-
-                acionistasListView.setItems(FXCollections.observableArrayList(acionistas)); // Atualiza a ListView de funcionários
             }
             stage.close();
         });
@@ -199,6 +216,7 @@ public class Principal extends Application {
                     alert.setTitle("Informação");
                     alert.setHeaderText(null);
                     alert.setContentText("Quantidade de parcelas em atraso: " + acionista.getTempo_atraso());
+                    acionistasListView.setItems(FXCollections.observableArrayList(acionistas)); // Atualiza a ListView de funcionários
                     alert.showAndWait();
                     TextInputDialog dialog = new TextInputDialog();
                     dialog.setTitle("Fazer Pagamento");
