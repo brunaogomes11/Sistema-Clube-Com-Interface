@@ -290,7 +290,7 @@ public class Principal extends Application {
                     alert.setHeaderText(null);
                     alert.setContentText("Ação cancelada com sucesso!");
                     alert.showAndWait();
-                    funcionariosListView.setItems(FXCollections.observableArrayList(funcionarios));
+                    acionistasListView.setItems(FXCollections.observableArrayList(acionista));
                     stage.close();
                 });
 

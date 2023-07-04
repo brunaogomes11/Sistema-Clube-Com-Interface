@@ -30,6 +30,4 @@ public class Funcionario extends Pessoa {
     public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
-    
-     
 }

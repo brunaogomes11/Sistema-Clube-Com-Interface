@@ -15,8 +15,8 @@
             "name": "Principal",
             "request": "launch",
             "mainClass": "Principal",
-            "projectName": "interface_sistema_clube_5e0d90bc",
-            "vmArgs": "--module-path \"C:/Program Files/Java/Java Libs/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "projectName": "Sistema-Clube-Com-Interface_db2f24a9",
+            "vmArgs": "--module-path \"C:/Users/12633354629/Downloads/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
