@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -34,6 +37,8 @@ public class Principal extends Application {
         root.setPadding(new Insets(20));
 
         // Criação dos botões para cada opção
+        Label clubeDosPatetasLabel = new Label("Clube dos Patetas - Gerenciamento");
+        clubeDosPatetasLabel.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
         Button cadastrarAcionistaButton = new Button("Cadastrar Acionista");
         Button editarAcionistaButton = new Button("Editar Acionista");
         Button cadastrarFuncionarioButton = new Button("Cadastrar Funcionário");
@@ -48,11 +53,15 @@ public class Principal extends Application {
         fecharProgramaButton.setOnAction(e -> primaryStage.close());
 
         // Criação dos ListViews para acionistas e funcionários
+        Label acionistasLabelTitutloLabel = new Label("Acionistas");
+        acionistasLabelTitutloLabel.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+
         acionistasListView = new ListView<>();
         acionistasListView.setItems(FXCollections.observableArrayList(acionistas));
         acionistasListView.setPrefWidth(200);
         acionistasListView.setPrefHeight(300);
-
+        Label funcionariosLabelTitutloLabel = new Label("Funcionários");
+        funcionariosLabelTitutloLabel.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
         funcionariosListView = new ListView<>();
         funcionariosListView.setItems(FXCollections.observableArrayList(funcionarios));
         funcionariosListView.setPrefWidth(200);
@@ -62,6 +71,7 @@ public class Principal extends Application {
         VBox buttonsBox = new VBox(10);
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.getChildren().addAll(
+                clubeDosPatetasLabel,
                 cadastrarAcionistaButton,
                 editarAcionistaButton,
                 cadastrarFuncionarioButton,
@@ -69,6 +79,12 @@ public class Principal extends Application {
                 fecharProgramaButton
         );
 
+        HBox titulosBox = new HBox(40);
+        titulosBox.setAlignment(Pos.CENTER);
+        titulosBox.getChildren().addAll(
+            acionistasLabelTitutloLabel,
+            funcionariosLabelTitutloLabel
+        );
         HBox listViewsBox = new HBox(20);
         listViewsBox.setAlignment(Pos.CENTER);
         listViewsBox.getChildren().addAll(
@@ -76,9 +92,15 @@ public class Principal extends Application {
                 funcionariosListView
         );
 
+        VBox titulosEViewBox = new VBox(20);
+        titulosEViewBox.setAlignment(Pos.CENTER);
+        titulosEViewBox.getChildren().addAll(
+            titulosBox,
+            listViewsBox
+        );
         root.getChildren().addAll(
-                buttonsBox,
-                listViewsBox
+            buttonsBox,
+            titulosEViewBox
         );
 
         // Criação da cena principal
@@ -201,11 +223,12 @@ public class Principal extends Application {
             Optional<Acionista> acionistaOptional = acionistas.stream()
                     .filter(a -> a.getCpf().equals(cpf))
                     .findFirst();
-
+            
             if (acionistaOptional.isPresent()) {
                 Acionista acionista = acionistaOptional.get();
 
                 // Criação dos botões para as opções adicionais
+                Label nomeAcionista = new Label("Nome: " + acionista.getNome() + "\nCPF: " + acionista.getCpf());
                 Button fazerPagamentoButton = new Button("Fazer Pagamento");
                 Button aumentarParcelasButton = new Button("Aumentar Parcelas em Atraso");
                 Button cancelarAcaoButton = new Button("Cancelar Ação");
@@ -272,6 +295,7 @@ public class Principal extends Application {
                 });
 
                 root.getChildren().addAll(
+                        nomeAcionista,
                         fazerPagamentoButton,
                         aumentarParcelasButton,
                         cancelarAcaoButton
@@ -291,7 +315,7 @@ public class Principal extends Application {
                 editarButton
         );
 
-        Scene scene = new Scene(root, 300, 200);
+        Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.show();
     }
@@ -397,6 +421,7 @@ public class Principal extends Application {
                 Funcionario funcionario = funcionarioOptional.get();
 
                 // Criação dos botões para as opções adicionais
+                Label nomeFuncionario = new Label("Nome: " + funcionario.getNome() + "\nCPF: " + funcionario.getCpf());
                 Button mudarFuncaoButton = new Button("Mudar Função");
                 Button aumentarSalarioButton = new Button("Aumentar Salário");
                 Button demitirFuncionarioButton = new Button("Demitir Funcionário");
@@ -452,6 +477,7 @@ public class Principal extends Application {
                 });
 
                 root.getChildren().addAll(
+                        nomeFuncionario,
                         mudarFuncaoButton,
                         aumentarSalarioButton,
                         demitirFuncionarioButton
@@ -471,7 +497,7 @@ public class Principal extends Application {
                 editarButton
         );
 
-        Scene scene = new Scene(root, 300, 200);
+        Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.show();
     }
